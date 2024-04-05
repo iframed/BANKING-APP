@@ -10,7 +10,6 @@ import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -37,7 +36,7 @@ import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity(prePostEnabled = true)
+//@EnableMethodSecurity(prePostEnabled = true)
 public class SpringSecurity {
     
     //passwordencoder
@@ -59,7 +58,11 @@ public class SpringSecurity {
          .sessionManagement(sm->sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
          .csrf(csrf->csrf.disable())
          .cors(Customizer.withDefaults())
+         
          .authorizeHttpRequests(ar->ar.requestMatchers("**").permitAll())
+         
+
+         // Autoriser l'accès aux comptes sans authentification)
          .authorizeHttpRequests(ar->ar.anyRequest().authenticated())
          .oauth2ResourceServer(oa->oa.jwt(Customizer.withDefaults()))
           .build();

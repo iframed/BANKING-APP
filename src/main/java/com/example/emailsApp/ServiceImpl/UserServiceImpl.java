@@ -10,11 +10,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.emailsApp.dto.UserDto;
+
 import com.example.emailsApp.entity.Roles;
 import com.example.emailsApp.entity.User;
 import com.example.emailsApp.repository.RoleRepository;
 import com.example.emailsApp.repository.UserRepository;
 import com.example.emailsApp.services.UserService;
+
+import jakarta.persistence.EntityNotFoundException;
 
 
 
@@ -39,7 +42,7 @@ public class UserServiceImpl  implements UserService{
     @Override
     public void saveUser(UserDto userDto) {
         
-
+        
         if (userDto.getPassword() == null) {
             throw new IllegalArgumentException("Password cannot be null");
         }
@@ -49,7 +52,7 @@ public class UserServiceImpl  implements UserService{
         // encrypt the password using spring security
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
-       Roles role = roleRepository.findByName("ROLE_USER");
+       Roles role = roleRepository.findByName("USER");
        
        if(role == null){
             role = checkRoleExist();
@@ -65,6 +68,9 @@ public class UserServiceImpl  implements UserService{
         return userRepository.findByEmail(email);
     }
 
+
+   
+
     @Override
     public List<UserDto> findAllUsers() {
         List<User> users = userRepository.findAll();
@@ -76,6 +82,7 @@ public class UserServiceImpl  implements UserService{
     private UserDto mapToUserDto(User user){
         UserDto userDto = new UserDto();
         String[] str = user.getName().split(" ");
+        userDto.setId(user.getId());
         userDto.setFirstName(str[0]);
         userDto.setLastName(str[1]);
         userDto.setEmail(user.getEmail());
@@ -89,13 +96,20 @@ public class UserServiceImpl  implements UserService{
 
     private Roles checkRoleExist(){
         Roles role = new Roles();
-        role.setName("ROLE_USER");
+        role.setName("USER");
         return roleRepository.save(role);
 
     }
 
 
-
+    @Override
+    public void updateUserRole(Long id, List<String> newRoles) {
+        User user = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found"));
+        List<Roles> userRoles = roleRepository.findAllByNameIn(newRoles);
+        user.setRoles(userRoles);
+        userRepository.save(user);
+    }
+    
     
 }
 

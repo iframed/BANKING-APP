@@ -1,7 +1,9 @@
 package com.example.emailsApp.services;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.stream.Collectors;
+import java.util.List;
+
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -34,16 +36,30 @@ public class CustomUserDetailsService implements UserDetailsService{
         if (user != null) {
             return new org.springframework.security.core.userdetails.User(user.getEmail(),
                     user.getPassword(),
-                    mapRolesToAuthorities(user.getRoles()));
+                    getAuthorities(user.getRoles()));
+                    //mapRolesToAuthorities(user.getRoles()));
         }else{
             throw new UsernameNotFoundException("Invalid username or password.");
         }
     }
     
-    private Collection < ? extends GrantedAuthority> mapRolesToAuthorities(Collection <Roles> roles) {
+    /*private Collection < ? extends GrantedAuthority> mapRolesToAuthorities(Collection <Roles> roles) {
         Collection < ? extends GrantedAuthority> mapRoles = roles.stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toList());
         return mapRoles;
-     }
+     } */
+
+
+     private Collection<? extends GrantedAuthority> getAuthorities(
+  Collection<Roles> roles) {
+    List<GrantedAuthority> authorities = new ArrayList<>();
+    for (Roles role: roles) {
+        authorities.add(new SimpleGrantedAuthority(role.getName()));
+       
+                 
+    }
+    
+    return authorities;
+}
 }
