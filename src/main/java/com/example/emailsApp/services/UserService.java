@@ -13,4 +13,6 @@ public interface UserService {
     List<UserDto> findAllUsers();
     void updateUserRole(Long id, List<String> roles);
 
+    void suprimer(long Id);
+
 }

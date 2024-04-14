@@ -109,6 +109,12 @@ public class UserServiceImpl  implements UserService{
         user.setRoles(userRoles);
         userRepository.save(user);
     }
+
+
+    @Override
+    public void suprimer(long Id) {
+       
+    }
     
     
 }
