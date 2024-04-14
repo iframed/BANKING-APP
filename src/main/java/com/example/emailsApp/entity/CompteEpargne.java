@@ -17,6 +17,6 @@ import lombok.NoArgsConstructor;
 @Entity
 public class CompteEpargne  extends CompteBancaire {
 
-    private double Tauxinteret;
+    private double tauxinteret;
     
 }

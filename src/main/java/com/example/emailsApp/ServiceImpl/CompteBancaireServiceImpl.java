@@ -272,6 +272,9 @@ import com.example.emailsApp.services.CompteBancaireService;
       List<OperationDto> operationDtos= operation.getContent().stream().map(op->mapper.fromOper(op)).collect(Collectors.toList());
       operationPageDtos.setOperationDto(operationDtos);
       operationPageDtos.setId(compteBancaire.getId());
+      operationPageDtos.setDatecreation(compteBancaire.getDatecreation());
+      operationPageDtos.setStatus(compteBancaire.getStatus());
+      
      
       operationPageDtos.setSolde(compteBancaire.getSolde());
       operationPageDtos.setPagesize(size);

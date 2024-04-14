@@ -50,6 +50,12 @@ public class CompteBancaireController {
         return compteBancaireService.getCompteBancaire(id);
 
     }
+
+    @GetMapping("/comptes")
+    public List<CompteBancaireDto > getListCompte(){
+        return compteBancaireService.compteBancairelList();
+
+    }
     
 
     @GetMapping("/compte/{id}/operations")

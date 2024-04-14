@@ -1,6 +1,8 @@
 package com.example.emailsApp.dto;
 
-import java.sql.Date;
+
+
+import java.util.Date;
 
 import com.example.emailsApp.entity.CompteStatus;
 
@@ -23,7 +25,7 @@ import lombok.Setter;
 public class CompteCourantDto extends CompteBancaireDto {
     
    
-    private String Accountid ;
+    private String id ;
     
     private Date datecreation;
 
