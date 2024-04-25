@@ -52,7 +52,7 @@ public class UserServiceImpl  implements UserService{
         // encrypt the password using spring security
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
-       Roles role = roleRepository.findByName("USER");
+       Roles role = roleRepository.findByName("ADMIN");
        
        if(role == null){
             role = checkRoleExist();
@@ -96,7 +96,7 @@ public class UserServiceImpl  implements UserService{
 
     private Roles checkRoleExist(){
         Roles role = new Roles();
-        role.setName("USER");
+        role.setName("ADMIN");
         return roleRepository.save(role);
 
     }
