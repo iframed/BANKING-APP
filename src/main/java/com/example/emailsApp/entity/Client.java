@@ -41,6 +41,7 @@ private String emails;
 
 private double telephone;
 
+private double ka;
 
 
 @OneToMany(mappedBy = "client" , fetch = FetchType.LAZY , cascade = CascadeType.ALL)
