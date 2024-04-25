@@ -41,7 +41,7 @@ private String emails;
 
 private double telephone;
 
-
+private double ko;
 
 @OneToMany(mappedBy = "client" , fetch = FetchType.LAZY , cascade = CascadeType.ALL)
 private List<CompteBancaire> CompteBancaire;
