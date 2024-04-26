@@ -77,7 +77,7 @@ public class ClientController {
     return compteBancaireService.updateClient(clientDto);
    }
 
-   //@RolesAllowed({"ADMIN"})
+   
    @DeleteMapping("/clients/{id}")
    public void deleteClient(@PathVariable long id)
     {
