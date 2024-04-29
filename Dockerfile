@@ -3,5 +3,5 @@ COPY . .
 RUN mvn clean package -DskipTests
 FROM openjdk:17-ea-28-jdk-slim
 COPY --from=build /target/emailsApp-0.0.1-SNAPSHOT.jar emailsApp.jar
-EXPOSE 9090
+EXPOSE 8080
 ENTRYPOINT [ "java","-jar","emailsApp.jar" ]
